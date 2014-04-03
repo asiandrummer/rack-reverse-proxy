@@ -25,6 +25,8 @@ module Rack
       }
       headers['HOST'] = uri.host if all_opts[:preserve_host]
       headers['X-Forwarded-Host'] = rackreq.host if all_opts[:x_forwarded_host]
+      # Checking the :referer option and set the header if exists
+      headers['Referer'] = all_opts[:referer] if all_opts[:referer]
 
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
